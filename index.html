@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>1龙龙 & 陈哲远 专属小窝💖</title>
+    <title>龙龙 & 陈哲远 专属小窝💖</title>
     <style>
         * {
             margin: 0;
@@ -227,7 +227,6 @@
         }
 
         let nowImg = 1;
-        const maxImg = 9;
 
         (function(){
             if(location.search.indexOf("gallery=yes") !== -1){
@@ -246,21 +245,21 @@
             }
         })();
 
+        // 上一张 完整写法 x.jpg
         function prevImg(){
             nowImg--;
             if(nowImg < 1){
                 nowImg = 9;
             }
-            // 完整标准写法：数字.png
             document.getElementById("showImg").src = nowImg + ".jpg";
         }
 
+        // 下一张 完整写法 x.jpg
         function nextImg(){
             nowImg++;
             if(nowImg > 9){
                 nowImg = 1;
             }
-            // 完整标准写法：数字.png
             document.getElementById("showImg").src = nowImg + ".jpg";
         }
     </script>
