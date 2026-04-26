@@ -104,6 +104,7 @@
             color: #d487af;
         }
 
+        /* 按钮样式 */
         .pic-btn{
             display: block;
             margin: 15px auto;
@@ -118,51 +119,6 @@
         }
         .pic-btn:hover{
             background: #ff6ea9;
-        }
-
-        .gallery-body{
-            background: #fef0f7;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-        .back-btn{
-            position: fixed;
-            top:20px;
-            left:20px;
-            padding:8px 20px;
-            background:#ff97c1;
-            color:#fff;
-            border:none;
-            border-radius:25px;
-            font-size:16px;
-            z-index:999;
-            cursor: pointer;
-        }
-        .img-box{
-            width: 90%;
-            max-width: 400px;
-        }
-        .img-box img{
-            width:100%;
-            border-radius:20px;
-            box-shadow: 0 0 15px #ffd2e6;
-        }
-        .turn-btn{
-            margin-top:25px;
-            display: flex;
-            gap: 30px;
-        }
-        .turn-btn button{
-            padding:8px 24px;
-            border:none;
-            border-radius:25px;
-            background:#ff97c1;
-            color:#fff;
-            font-size:16px;
-            cursor: pointer;
         }
     </style>
 </head>
@@ -192,7 +148,8 @@
             永远热爱 满心欢喜<br>
             岁岁平安 万事顺意 🌟
         </div>
-        <button class="pic-btn" onclick="openGallery()">查看照片画廊</button>
+        <!-- 点击跳转全屏图片页 -->
+        <button class="pic-btn" onclick="toPhotoPage()">查看全部照片</button>
     </div>
 
     <div class="card">
@@ -208,60 +165,70 @@
     </div>
 
     <script>
+        // 生日倒计时
         function updateCountDown() {
             const now = new Date();
             let birth = new Date(now.getFullYear() + "-11-13 00:00:00");
             if (now > birth) birth = new Date(now.getFullYear() + 1 + "-11-13 00:00:00");
+
             let diff = birth - now;
             let d = Math.floor(diff / 86400000);
             let h = Math.floor(diff % 86400000 / 3600000);
             let m = Math.floor(diff % 3600000 / 60000);
             let s = Math.floor(diff % 60000 / 1000);
+
             document.getElementById("countDown").innerText = `${d}天 ${h}时 ${m}分 ${s}秒`;
         }
         updateCountDown();
         setInterval(updateCountDown, 1000);
 
-        function openGallery(){
-            window.location.href = "?gallery=yes";
+        // 跳转图片页，带上随机图片参数
+        function toPhotoPage(){
+            let randomNum = Math.floor(Math.random() * 9) + 1;
+            // 跳转当前页面并传参，刷新变成全屏图片
+            window.location.href = "?img=" + randomNum;
         }
 
-        let nowImg = 1;
-
+        // 判断是不是图片页面模式
         (function(){
-            if(location.search.indexOf("gallery=yes") !== -1){
+            let url = window.location.href;
+            if(url.includes("?img=")){
+                // 获取随机图片编号
+                let imgNum = url.split("img=")[1];
+                // 渲染全屏图片页面
                 document.body.innerHTML = `
-                <div class="gallery-body">
+                    <style>
+                        *{margin:0;padding:0;}
+                        body{
+                            background:#000;
+                            height:100vh;
+                            display:flex;
+                            justify-content:center;
+                            align-items:center;
+                        }
+                        .back-btn{
+                            position:fixed;
+                            top:15px;
+                            left:15px;
+                            padding:6px 18px;
+                            background:#ff97c1;
+                            color:#fff;
+                            border:none;
+                            border-radius:20px;
+                            font-size:16px;
+                            z-index:999;
+                        }
+                        img{
+                            width:100%;
+                            height:100%;
+                            object-fit:contain;
+                        }
+                    </style>
                     <button class="back-btn" onclick="history.back()">返回</button>
-                    <div class="img-box">
-                        < img id="showImg" src="1.jpg">
-                    </div>
-                    <div class="turn-btn">
-                        <button onclick="prevImg()">上一张</button>
-                        <button onclick="nextImg()">下一张</button>
-                    </div>
-                </div>
+                    < img src="${imgNum}.jpg" alt="陈哲远">
                 `;
             }
         })();
-
-        // 上一张 完整写法 x.jpg
-        function prevImg(){
-            nowImg--;
-            if(nowImg < 1){
-                nowImg = 9;
-            }
-            document.getElementById("showImg").src = nowImg + ".jpg";
-        }
-
-        // 下一张 完整写法 x.jpg
-        function nextImg(){
-            nowImg++;
-            if(nowImg > 9){
-                nowImg = 1;
-            }
-            document.getElementById("showImg").src = nowImg + ".jpg";
-        }
     </script>
 </body>
 </html>
