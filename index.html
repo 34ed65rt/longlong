@@ -14,12 +14,10 @@
         body {
             background: linear-gradient(135deg, #ffeaf6, #fde2f3, #f8e4ff);
             min-height: 100vh;
-            /* 超可爱圆润卡通字体 */
             font-family: "幼圆", "Comic Sans MS", "微软雅黑", sans-serif;
             overflow-x: hidden;
         }
 
-        /* 顶部标题 摇摆可爱动效 */
         .top-title {
             text-align: center;
             padding: 35px 10px;
@@ -45,7 +43,6 @@
             to { transform: scale(1.15); }
         }
 
-        /* 可爱卡片 轻微上浮 */
         .card {
             width: 92%;
             max-width: 620px;
@@ -71,14 +68,12 @@
             letter-spacing: 2px;
         }
 
-        /* 倒计时 —— 已修复：无闪烁、无抖动、安静更新 */
         .count-time {
             font-size: 32px;
             text-align: center;
             font-weight: bold;
             color: #b7487a;
             letter-spacing: 4px;
-            /* 删掉闪烁动画，彻底不闪 */
         }
 
         .star-text {
@@ -88,7 +83,6 @@
             color: #c76896;
         }
 
-        /* 漂浮爱心星星 */
         .float-item {
             position: fixed;
             z-index: -1;
@@ -112,27 +106,23 @@
     </style>
 </head>
 <body>
-    <!-- 漂浮装饰 -->
     <div class="float-item" style="top:12%;left:6%;animation-delay:0s;">❤</div>
     <div class="float-item" style="top:35%;right:8%;animation-delay:1.2s;">✨</div>
     <div class="float-item" style="top:65%;left:4%;animation-delay:2.3s;">❤</div>
     <div class="float-item" style="top:85%;right:12%;animation-delay:3.1s;">✨</div>
 
-    <!-- 顶部：我爱你 龙龙 -->
     <div class="top-title">
         <span class="heart">❤</span> 我爱你 龙龙 <span class="heart">❤</span>
     </div>
 
-    <!-- 田蛟龙 11月13日 生日倒计时（不闪不抖） -->
     <div class="card">
-        <h2>🎂 宝宝的 生日倒计时</h2>
+        <h2>🎂 田蛟龙 生日倒计时</h2>
         <div class="count-time" id="countDown">加载中...</div>
         <p style="text-align:center;margin-top:18px;color:#c8729b;font-size:17px;">
             生日日期：11月13日 💝
         </p >
     </div>
 
-    <!-- 陈哲远 -->
     <div class="card">
         <h2>✨ 心动偶像｜陈哲远 ✨</h2>
         <div class="star-text">
@@ -143,7 +133,6 @@
         </div>
     </div>
 
-    <!-- 专属小窝 -->
     <div class="card">
         <h2>💖 龙龙的少女心小窝</h2>
         <p style="text-align:center;line-height:2.2;font-size:17px;color:#c76896;">
@@ -153,14 +142,14 @@
     </div>
 
     <div class="footer">
-        💗 龙龙的专属网站 · 祝你开心每一天 💗
+        💗 宝宝的专属网站 · 愿你天天开心快快乐乐！！ 💗
     </div>
 
     <script>
-        // 修复：倒计时无刷新、无闪烁、安静秒更
         function updateCountDown() {
             const now = new Date();
-            let birth = new Date(now.getFullYear() + "-11-29 00:00:00");
+            // 已改成：11月13日
+            let birth = new Date(now.getFullYear() + "-11-13 00:00:00");
             if (now > birth) birth = new Date(now.getFullYear() + 1 + "-11-13 00:00:00");
 
             let diff = birth - now;
