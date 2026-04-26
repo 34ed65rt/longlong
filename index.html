@@ -104,7 +104,6 @@
             color: #d487af;
         }
 
-        /* 按钮样式 */
         .pic-btn{
             display: block;
             margin: 15px auto;
@@ -119,6 +118,84 @@
         }
         .pic-btn:hover{
             background: #ff6ea9;
+        }
+
+        /* 返回按钮通用 */
+        .back-btn{
+            position:fixed;
+            top:15px;
+            left:15px;
+            padding:6px 18px;
+            background:#ff97c1;
+            color:#fff;
+            border:none;
+            border-radius:20px;
+            font-size:16px;
+            z-index:999;
+            cursor: pointer;
+        }
+
+        /* 生日动画全屏页面 */
+        .ani-body{
+            margin: 0;
+            padding: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            background: #000;
+        }
+        /* 粒子、炸裂、流光 冲击动画 */
+        .firework{
+            position: absolute;
+            border-radius: 50%;
+            animation: burst 1.5s ease-out forwards;
+        }
+        @keyframes burst{
+            0%{transform: scale(0);opacity:1;}
+            100%{transform: scale(3);opacity:0;}
+        }
+        .flash{
+            position: fixed;
+            width:100vw;height:100vh;
+            background:#fff;
+            opacity:0;
+            animation: flashAni 2s infinite;
+        }
+        @keyframes flashAni{
+            0%,100%{opacity:0;}
+            50%{opacity:0.3;}
+        }
+        .color-run{
+            position:fixed;
+            width:100vw;height:100vh;
+            background: linear-gradient(45deg,#ff0080,#ffcc00,#8400ff,#00bfff);
+            background-size: 400% 400%;
+            opacity:0.2;
+            animation: bgRun 10s linear infinite;
+        }
+        @keyframes bgRun{
+            0%{background-position:0% 50%;}
+            50%{background-position:100% 50%;}
+            100%{background-position:0% 50%;}
+        }
+        /* 最终弹出文字 1分30秒 */
+        .final-text{
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%) scale(0);
+            font-size: 60px;
+            font-weight: 900;
+            color: #ff3385;
+            text-shadow: 0 0 20px #fff,0 0 40px #ff0080;
+            text-align: center;
+            z-index: 9999;
+            animation: textBig 3s ease-out forwards;
+        }
+        @keyframes textBig{
+            0%{transform: translate(-50%,-50%) scale(0);}
+            50%{transform: translate(-50%,-50%) scale(1.2);}
+            100%{transform: translate(-50%,-50%) scale(1);}
         }
     </style>
 </head>
@@ -138,6 +215,7 @@
         <p style="text-align:center;margin-top:18px;color:#c8729b;font-size:17px;">
             生日日期：11月13日 💝
         </p >
+        <button class="pic-btn" onclick="toBirthdayPage()">生日快乐祝福</button>
     </div>
 
     <div class="card">
@@ -148,7 +226,6 @@
             永远热爱 满心欢喜<br>
             岁岁平安 万事顺意 🌟
         </div>
-        <!-- 点击跳转全屏图片页 -->
         <button class="pic-btn" onclick="toPhotoPage()">查看全部照片</button>
     </div>
 
@@ -170,63 +247,92 @@
             const now = new Date();
             let birth = new Date(now.getFullYear() + "-11-13 00:00:00");
             if (now > birth) birth = new Date(now.getFullYear() + 1 + "-11-13 00:00:00");
-
             let diff = birth - now;
             let d = Math.floor(diff / 86400000);
             let h = Math.floor(diff % 86400000 / 3600000);
             let m = Math.floor(diff % 3600000 / 60000);
             let s = Math.floor(diff % 60000 / 1000);
-
             document.getElementById("countDown").innerText = `${d}天 ${h}时 ${m}分 ${s}秒`;
         }
         updateCountDown();
         setInterval(updateCountDown, 1000);
 
-        // 跳转图片页，带上随机图片参数
+        // 页面跳转
         function toPhotoPage(){
             let randomNum = Math.floor(Math.random() * 9) + 1;
-            // 跳转当前页面并传参，刷新变成全屏图片
             window.location.href = "?img=" + randomNum;
         }
+        function toBirthdayPage(){
+            window.location.href = "?birthday=ani";
+        }
 
-        // 判断是不是图片页面模式
+        // 随机颜色
+        function randomColor(){
+            let col = ["#ff0080","#ffcc00","#8400ff","#00bfff","#39ff14","#ff4500"];
+            return col[Math.floor(Math.random()*col.length)];
+        }
+        // 生成炸裂粒子
+        function createFirework(){
+            let box = document.querySelector(".ani-body");
+            for(let i=0;i<30;i++){
+                let div = document.createElement("div");
+                div.className = "firework";
+                div.style.left = Math.random()*100+"vw";
+                div.style.top = Math.random()*100+"vh";
+                div.style.width = Math.random()*20+10+"px";
+                div.style.height = div.style.width;
+                div.style.background = randomColor();
+                box.appendChild(div);
+                setTimeout(()=>{div.remove()},1500);
+            }
+        }
+
+        // 全局页面判断
         (function(){
             let url = window.location.href;
+
+            // 图片页面
             if(url.includes("?img=")){
-                // 获取随机图片编号
                 let imgNum = url.split("img=")[1];
-                // 渲染全屏图片页面
                 document.body.innerHTML = `
                     <style>
                         *{margin:0;padding:0;}
-                        body{
-                            background:#000;
-                            height:100vh;
-                            display:flex;
-                            justify-content:center;
-                            align-items:center;
-                        }
-                        .back-btn{
-                            position:fixed;
-                            top:15px;
-                            left:15px;
-                            padding:6px 18px;
-                            background:#ff97c1;
-                            color:#fff;
-                            border:none;
-                            border-radius:20px;
-                            font-size:16px;
-                            z-index:999;
-                        }
-                        img{
-                            width:100%;
-                            height:100%;
-                            object-fit:contain;
-                        }
+                        body{background:#000;height:100vh;display:flex;justify-content:center;align-items:center;}
+                        .back-btn{position:fixed;top:15px;left:15px;padding:6px 18px;background:#ff97c1;color:#fff;border:none;border-radius:20px;font-size:16px;z-index:999;}
+                        img{width:100%;height:100%;object-fit:contain;}
                     </style>
                     <button class="back-btn" onclick="history.back()">返回</button>
-                    <img src="${imgNum}.jpg" alt="陈哲远">
+                    < img src="${imgNum}.jpg" alt="陈哲远">
                 `;
+            }
+
+            // 1分35秒超冲击生日动画页
+            if(url.includes("?birthday=ani")){
+                document.body.innerHTML = `
+                <div class="ani-body">
+                    <button class="back-btn" onclick="history.back()">返回</button>
+                    <div class="color-run"></div>
+                    <div class="flash"></div>
+                    <audio id="happyMusic" loop>
+                        <source src="happy.mp3" type="audio/mpeg">
+                    
+                    <div class="final-text" id="finalTip"></div>
+                </div>
+                `;
+
+                // 自动播放音乐
+                let music = document.getElementById("happyMusic");
+                music.volume = 0.8;
+                music.play();
+
+                // 持续炸裂粒子动画 全程1分35秒
+                let fireTimer = setInterval(createFirework,400);
+                setTimeout(()=>{clearInterval(fireTimer);},95000);
+
+                // 👉 1分30秒 = 90000 毫秒 弹出文字
+                setTimeout(()=>{
+                    document.getElementById("finalTip").innerText = "龙龙宝宝\n生日快乐";
+                },90000);
             }
         })();
     </script>
