@@ -103,6 +103,23 @@
             font-size: 16px;
             color: #d487af;
         }
+
+        /* 按钮样式 */
+        .pic-btn{
+            display: block;
+            margin: 15px auto;
+            padding: 10px 26px;
+            border: none;
+            border-radius: 30px;
+            background: #ff97c1;
+            color: #fff;
+            font-size: 17px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .pic-btn:hover{
+            background: #ff6ea9;
+        }
     </style>
 </head>
 <body>
@@ -131,6 +148,8 @@
             永远热爱 满心欢喜<br>
             岁岁平安 万事顺意 🌟
         </div>
+        <!-- 点击跳转全屏图片页 -->
+        <button class="pic-btn" onclick="toPhotoPage()">查看全部照片</button>
     </div>
 
     <div class="card">
@@ -142,13 +161,13 @@
     </div>
 
     <div class="footer">
-        💗 宝宝的专属网站 · 愿你天天开心快快乐乐！！ 💗
+        💗 少女心专属网页 · 温柔治愈小站 💗
     </div>
 
     <script>
+        // 生日倒计时
         function updateCountDown() {
             const now = new Date();
-            // 已改成：11月13日
             let birth = new Date(now.getFullYear() + "-11-13 00:00:00");
             if (now > birth) birth = new Date(now.getFullYear() + 1 + "-11-13 00:00:00");
 
@@ -160,9 +179,56 @@
 
             document.getElementById("countDown").innerText = `${d}天 ${h}时 ${m}分 ${s}秒`;
         }
-
         updateCountDown();
         setInterval(updateCountDown, 1000);
+
+        // 跳转图片页，带上随机图片参数
+        function toPhotoPage(){
+            let randomNum = Math.floor(Math.random() * 9) + 1;
+            // 跳转当前页面并传参，刷新变成全屏图片
+            window.location.href = "?img=" + randomNum;
+        }
+
+        // 判断是不是图片页面模式
+        (function(){
+            let url = window.location.href;
+            if(url.includes("?img=")){
+                // 获取随机图片编号
+                let imgNum = url.split("img=")[1];
+                // 渲染全屏图片页面
+                document.body.innerHTML = `
+                    <style>
+                        *{margin:0;padding:0;}
+                        body{
+                            background:#000;
+                            height:100vh;
+                            display:flex;
+                            justify-content:center;
+                            align-items:center;
+                        }
+                        .back-btn{
+                            position:fixed;
+                            top:15px;
+                            left:15px;
+                            padding:6px 18px;
+                            background:#ff97c1;
+                            color:#fff;
+                            border:none;
+                            border-radius:20px;
+                            font-size:16px;
+                            z-index:999;
+                        }
+                        img{
+                            width:100%;
+                            height:100%;
+                            object-fit:contain;
+                        }
+                    </style>
+                    <button class="back-btn" onclick="history.back()">返回</button>
+                    < img src="${imgNum}.png" alt="陈哲远">
+                `;
+            }
+        })();
     </script>
 </body>
 </html>
