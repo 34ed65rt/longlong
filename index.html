@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>龙龙 & 陈哲远 专属小窝💖</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #ffeaf6, #fde2f3, #f8e4ff);
+            min-height: 100vh;
+            /* 超可爱圆润卡通字体 */
+            font-family: "幼圆", "Comic Sans MS", "微软雅黑", sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* 顶部标题 摇摆可爱动效 */
+        .top-title {
+            text-align: center;
+            padding: 35px 10px;
+            font-size: 46px;
+            font-weight: bold;
+            color: #ff5ea8;
+            text-shadow: 0 0 10px #ffc8e0;
+            animation: swing 2.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes swing {
+            0% { transform: rotate(-2deg) scale(1); }
+            100% { transform: rotate(2deg) scale(1.03); }
+        }
+
+        .heart {
+            color: #ff2e7e;
+            animation: beat 1.2s infinite alternate;
+        }
+
+        @keyframes beat {
+            from { transform: scale(1); }
+            to { transform: scale(1.15); }
+        }
+
+        /* 可爱卡片 轻微上浮 */
+        .card {
+            width: 92%;
+            max-width: 620px;
+            margin: 30px auto;
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 35px;
+            padding: 28px;
+            box-shadow: 0 6px 18px #ffd2e6;
+            border: 3px solid #ffd6ec;
+            animation: cardUp 5s ease-in-out infinite;
+        }
+
+        @keyframes cardUp {
+            0%,100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+
+        .card h2 {
+            text-align: center;
+            margin-bottom: 18px;
+            color: #d85b93;
+            font-size: 26px;
+            letter-spacing: 2px;
+        }
+
+        /* 倒计时 —— 已修复：无闪烁、无抖动、安静更新 */
+        .count-time {
+            font-size: 32px;
+            text-align: center;
+            font-weight: bold;
+            color: #b7487a;
+            letter-spacing: 4px;
+            /* 删掉闪烁动画，彻底不闪 */
+        }
+
+        .star-text {
+            line-height: 2.2;
+            font-size: 18px;
+            text-align: center;
+            color: #c76896;
+        }
+
+        /* 漂浮爱心星星 */
+        .float-item {
+            position: fixed;
+            z-index: -1;
+            color: #ffb9d8;
+            font-size: 22px;
+            animation: floatMove 8s ease-in-out infinite;
+        }
+
+        @keyframes floatMove {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0.45; }
+            50% { transform: translateY(-25px) rotate(15deg); opacity: 0.9; }
+            100% { transform: translateY(0) rotate(0deg); opacity: 0.45; }
+        }
+
+        .footer {
+            text-align: center;
+            padding: 50px 0;
+            font-size: 16px;
+            color: #d487af;
+        }
+    </style>
+</head>
+<body>
+    <!-- 漂浮装饰 -->
+    <div class="float-item" style="top:12%;left:6%;animation-delay:0s;">❤</div>
+    <div class="float-item" style="top:35%;right:8%;animation-delay:1.2s;">✨</div>
+    <div class="float-item" style="top:65%;left:4%;animation-delay:2.3s;">❤</div>
+    <div class="float-item" style="top:85%;right:12%;animation-delay:3.1s;">✨</div>
+
+    <!-- 顶部：我爱你 龙龙 -->
+    <div class="top-title">
+        <span class="heart">❤</span> 我爱你 龙龙 <span class="heart">❤</span>
+    </div>
+
+    <!-- 田蛟龙 11月29日 生日倒计时（不闪不抖） -->
+    <div class="card">
+        <h2>🎂 田蛟龙 生日倒计时</h2>
+        <div class="count-time" id="countDown">加载中...</div>
+        <p style="text-align:center;margin-top:18px;color:#c8729b;font-size:17px;">
+            生日日期：11月29日 💝
+        </p >
+    </div>
+
+    <!-- 陈哲远 -->
+    <div class="card">
+        <h2>✨ 心动偶像｜陈哲远 ✨</h2>
+        <div class="star-text">
+            少年温柔 自带星光<br>
+            满目星河 不及陈哲远<br>
+            永远热爱 满心欢喜<br>
+            岁岁平安 万事顺意 🌟
+        </div>
+    </div>
+
+    <!-- 专属小窝 -->
+    <div class="card">
+        <h2>💖 龙龙的少女心小窝</h2>
+        <p style="text-align:center;line-height:2.2;font-size:17px;color:#c76896;">
+            属于田蛟龙的专属页面<br>
+            可可爱爱 甜甜每一天
+        </p >
+    </div>
+
+    <div class="footer">
+        💗 少女心专属网页 · 温柔治愈小站 💗
+    </div>
+
+    <script>
+        // 修复：倒计时无刷新、无闪烁、安静秒更
+        function updateCountDown() {
+            const now = new Date();
+            let birth = new Date(now.getFullYear() + "-11-29 00:00:00");
+            if (now > birth) birth = new Date(now.getFullYear() + 1 + "-11-29 00:00:00");
+
+            let diff = birth - now;
+            let d = Math.floor(diff / 86400000);
+            let h = Math.floor(diff % 86400000 / 3600000);
+            let m = Math.floor(diff % 3600000 / 60000);
+            let s = Math.floor(diff % 60000 / 1000);
+
+            document.getElementById("countDown").innerText = `${d}天 ${h}时 ${m}分 ${s}秒`;
+        }
+
+        updateCountDown();
+        setInterval(updateCountDown, 1000);
+    </script>
+</body>
+</html>
