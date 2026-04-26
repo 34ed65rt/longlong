@@ -221,12 +221,13 @@
     </div>
 
     <div class="card">
-        <h2>🎂 田蛟龙 生日倒计时</h2>
+        <h2>🎂 龙龙 生日倒计时</h2>
         <div class="count-time" id="countDown">加载中...</div>
         <p style="text-align:center;margin-top:18px;color:#c8729b;font-size:17px;">
             生日日期：11月13日 💝
-        </p >
-        <button class="pic-btn" onclick="toBirthdayPage()">生日快乐祝福</button>
+        </p>
+        <!-- 加时间锁按钮 -->
+        <button class="pic-btn" onclick="checkBirthdayLock()">生日快乐祝福</button>
     </div>
 
     <div class="card">
@@ -243,9 +244,9 @@
     <div class="card">
         <h2>💖 龙龙的少女心小窝</h2>
         <p style="text-align:center;line-height:2.2;font-size:17px;color:#c76896;">
-            属于田蛟龙的专属页面<br>
+            专属小窝<br>
             可可爱爱 甜甜每一天
-        </p >
+        </p>
     </div>
 
     <div class="footer">
@@ -253,11 +254,17 @@
     </div>
 
     <script>
-        // 倒计时
+        // 固定生日：11月13日
+        const targetMonth = 11;
+        const targetDay = 13;
+
+        // 首页天数倒计时
         function updateCountDown() {
             const now = new Date();
-            let birth = new Date(now.getFullYear() + "-11-13 00:00:00");
-            if (now > birth) birth = new Date(now.getFullYear() + 1 + "-11-13 00:00:00");
+            let birth = new Date(now.getFullYear() + "-" + targetMonth + "-" + targetDay);
+            if (now > birth) {
+                birth = new Date(now.getFullYear() + 1 + "-" + targetMonth + "-" + targetDay);
+            }
             let diff = birth - now;
             let d = Math.floor(diff / 86400000);
             let h = Math.floor(diff % 86400000 / 3600000);
@@ -268,13 +275,31 @@
         updateCountDown();
         setInterval(updateCountDown, 1000);
 
-        // 页面跳转
+        // 生日按钮 时间锁判断
+        function checkBirthdayLock(){
+            const now = new Date();
+            const currentMonth = now.getMonth() + 1;
+            const currentDay = now.getDate();
+
+            // 判断：未到11月13日 锁住
+            if(currentMonth < targetMonth || (currentMonth === targetMonth && currentDay < targetDay)){
+                // 计算剩余天数
+                let nextBirth = new Date(now.getFullYear(), targetMonth - 1, targetDay);
+                if(now > nextBirth){
+                    nextBirth = new Date(now.getFullYear() + 1, targetMonth - 1, targetDay);
+                }
+               let days = Math.ceil((nextBirth - now) / (1000 * 60 * 60 * 24));
+                alert(`🎂 还没到龙龙宝宝生日哦\n距离生日还有：${days} 天\n敬请期待～`);
+                return;
+            }
+            // 到日期 / 已过日期 → 正常进入动画
+            location.href = "?birthday=full";
+        }
+
+        // 图片页面跳转
         function toPhotoPage(){
             let ran = Math.floor(Math.random() * 9) + 1;
             location.href = "?img=" + ran;
-        }
-        function toBirthdayPage(){
-            location.href = "?birthday=full";
         }
 
         // 随机颜色
