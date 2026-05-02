@@ -208,6 +208,35 @@
             animation: textShow 5s ease-out forwards;
         }
         @keyframes textShow{0%{scale:0;}40%{scale:1.3;}100%{scale:1;}}
+
+        /* ==========新增表白页面样式========== */
+        .love-box{
+            width:100vw;height:100vh;
+            background:linear-gradient(120deg,#ffd6ee,#ffc0e2);
+            display:flex;flex-direction:column;
+            justify-content:center;align-items:center;
+            position:fixed;top:0;left:0;z-index:9999;
+            gap:40px;display:none;
+        }
+        .love-title{
+            font-size:42px;color:#ff2470;
+            font-weight:bold;text-align:center;
+            text-shadow:0 0 12px #fff;
+            transition:all 0.4s;
+        }
+        .love-btn-wrap{display:flex;gap:50px;}
+        .yes-btn{
+            padding:18px 40px;font-size:22px;
+            border:none;border-radius:30px;
+            background:#ff3388;color:white;
+            transition:transform 0.5s;
+        }
+        .no-btn{
+            padding:18px 40px;font-size:22px;
+            border:none;border-radius:30px;
+            background:#aaaaaa;color:white;
+            position:absolute;transition:all 0.3s ease;
+        }
     </style>
 </head>
 <body>
@@ -247,10 +276,21 @@
             专属小窝<br>
             可可爱爱 甜甜每一天
         </p>
+        <!-- 新增表白按钮 -->
+        <button class="pic-btn" onclick="openLovePage()">郑重表白💌</button>
     </div>
 
     <div class="footer">
         💗 少女心专属网页 · 温柔治愈小站 💗
+    </div>
+
+    <!-- ==========新增表白全屏界面========== -->
+    <div class="love-box" id="loveBox">
+        <div class="love-title" id="loveTitle">愿意做我女朋友吗</div>
+        <div class="love-btn-wrap">
+            <button class="yes-btn" id="yesBtn">愿意</button>
+            <button class="no-btn" id="noBtn">不愿意</button>
+        </div>
     </div>
 
     <script>
@@ -389,6 +429,60 @@
             }
         }
 
+        // ========================新增表白全部逻辑========================
+        // 哀求情话库
+        const loveWord = [
+            "求求你做我女朋友好不好",
+            "我真的超级超级喜欢你",
+            "别拒绝我好不好宝宝",
+            "一辈子只爱你一个人",
+            "答应我嘛我会好好对你",
+            "没有你我真的不行",
+            "求求龙龙宝贝答应我",
+            "我只想和你一直在一起"
+        ];
+
+        // 打开表白页面
+        function openLovePage(){
+            document.getElementById("loveBox").style.display = "flex";
+            changeLoveTitle();
+        }
+
+        // 随机更换哀求标题
+        function changeLoveTitle(){
+            document.getElementById("loveTitle").innerText = loveWord[Math.random()*loveWord.length|0];
+        }
+
+        // 不愿意按钮随机乱飞（不超出屏幕）
+        document.getElementById("noBtn").onclick = function(){
+            // 随机位置 严格限制不溢出窗口
+            let maxX = window.innerWidth - this.offsetWidth - 20;
+            let maxY = window.innerHeight - this.offsetHeight - 20;
+            let x = Math.random() * maxX;
+            let y = Math.random() * maxY;
+            this.style.left = x + "px";
+            this.style.top = y + "px";
+            // 每次点都换哀求文案
+            changeLoveTitle();
+        }
+
+        // 愿意按钮放大（不超出屏幕）
+        let yesScale = 1;
+        document.getElementById("yesBtn").onclick = function(){
+            yesScale += 0.25;
+            // 限制最大大小 不会溢出屏幕
+            if(yesScale < 2.8){
+                this.style.transform = "scale("+yesScale+")";
+            }else{
+                // 弹窗提示
+                alert("爱你呦宝宝❤️\n收到请回复1314");
+                // 回到首页
+                document.getElementById("loveBox").style.display = "none";
+                yesScale = 1;
+                this.style.transform = "scale(1)";
+            }
+        }
+
         // 页面逻辑
         (function(){
             let url = location.href;
@@ -461,10 +555,4 @@
 
                 // 👉 90秒 弹出：龙龙宝宝 生日快乐
                 setTimeout(()=>{
-                    document.getElementById("finalTxt").innerText = "龙龙宝宝\n生日快乐";
-                },90000);
-            }
-        })();
-    </script>
-</body>
-</html>
+                    document.getElementById("finalTxt")
