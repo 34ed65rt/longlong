@@ -389,6 +389,35 @@
             }
         }
 
+
+        //打开告白
+function openLove(){
+    document.getElementById("loveBox").style.display="flex";
+}
+
+//不要乱跑
+document.getElementById("noBtn").onclick=function(){
+    let maxX = window.innerWidth - this.offsetWidth - 20;
+    let maxY = window.innerHeight - this.offsetHeight - 20;
+    this.style.left = Math.random()*maxX+"px";
+    this.style.top = Math.random()*maxY+"px";
+}
+
+//可以放大
+let s=1;
+document.getElementById("yesBtn").onclick=function(){
+    s+=0.25;
+    if(s<3){
+        this.style.transform="scale("+s+")";
+    }else{
+        alert("爱你呦宝宝❤️ 1314");
+        document.getElementById("loveBox").style.display="none";
+        s=1;
+        this.style.transform="scale(1)";
+    }
+}
+
+    
         // 页面逻辑
         (function(){
             let url = location.href;
