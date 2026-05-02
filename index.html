@@ -33,7 +33,7 @@
             100% { transform: rotate(2deg) scale(1.03); }
         }
 
-        .heart {
+        .heart-icon {
             color: #ff2e7e;
             animation: beat 1.2s infinite alternate;
         }
@@ -49,31 +49,31 @@
             margin: 30px auto;
             background: rgba(255, 255, 255, 0.85);
             border-radius: 35px;
-            padding: 28px;
-            box-shadow: 0 6px 18px #ffd2e6;
-            border: 3px solid #ffd6ec;
-            animation: cardUp 5s ease-in-out infinite;
+            padding: 30px;
+            box-shadow: 0 6px 20px #ffd6ec;
+            animation: float 5s ease-in-out infinite;
         }
 
-        @keyframes cardUp {
-            0%,100% { transform: translateY(0); }
-            50% { transform: translateY(-6px); }
+        @keyframes float {
+            0%,100%{transform: translateY(0);}
+            50%{transform: translateY(-8px);}
         }
 
         .card h2 {
             text-align: center;
-            margin-bottom: 18px;
+            margin-bottom: 20px;
             color: #d85b93;
-            font-size: 26px;
+            font-size: 28px;
             letter-spacing: 2px;
         }
 
         .count-time {
-            font-size: 32px;
+            font-size: 34px;
             text-align: center;
             font-weight: bold;
-            color: #b7487a;
+            color: #b74787;
             letter-spacing: 4px;
+            margin: 15px 0;
         }
 
         .star-text {
@@ -81,6 +81,7 @@
             font-size: 18px;
             text-align: center;
             color: #c76896;
+            margin: 10px 0;
         }
 
         .float-item {
@@ -88,54 +89,50 @@
             z-index: -1;
             color: #ffb9d8;
             font-size: 22px;
-            animation: floatMove 8s ease-in-out infinite;
+            animation: move 8s linear infinite;
         }
 
-        @keyframes floatMove {
-            0% { transform: translateY(0) rotate(0deg); opacity: 0.45; }
-            50% { transform: translateY(-25px) rotate(15deg); opacity: 0.9; }
-            100% { transform: translateY(0) rotate(0deg); opacity: 0.45; }
+        @keyframes move {
+            0%{transform: translateY(100vh) rotate(0deg);opacity:0;}
+            10%{opacity:1;}
+            90%{opacity:1;}
+            100%{transform: translateY(-10vh) rotate(360deg);opacity:0;}
         }
 
-        .footer {
-            text-align: center;
-            padding: 50px 0;
-            font-size: 16px;
-            color: #d487af;
-        }
-
-        .pic-btn{
+        .btn-pink {
             display: block;
-            margin: 15px auto;
-            padding: 10px 26px;
+            margin: 18px auto;
+            padding: 12px 28px;
             border: none;
             border-radius: 30px;
             background: #ff97c1;
             color: #fff;
-            font-size: 17px;
+            font-size: 18px;
             cursor: pointer;
-            transition: 0.3s;
+            transition: all 0.3s;
         }
-        .pic-btn:hover{
+
+        .btn-pink:hover {
             background: #ff6ea9;
+            transform: scale(1.05);
         }
 
-        .back-btn{
-            position:fixed;
-            top:15px;
-            left:15px;
-            padding:6px 18px;
-            background:#ff97c1;
-            color:#fff;
-            border:none;
-            border-radius:20px;
-            font-size:16px;
-            z-index:999;
+        .btn-back {
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            padding: 8px 18px;
+            background: #ff97c1;
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            font-size: 16px;
+            z-index: 999;
             cursor: pointer;
         }
 
-        /* 生日动画全局 */
-        .ani-body{
+        /* 生日动画页面 */
+        .ani-box {
             width: 100vw;
             height: 100vh;
             overflow: hidden;
@@ -143,355 +140,288 @@
             position: relative;
         }
 
-        /* 下落祝福文字 */
-        .fall-text{
+        .fall-text {
             position: absolute;
             top: -50px;
             color: #fff;
             font-weight: bold;
             white-space: nowrap;
-            animation: fallDown linear forwards;
+            animation: fall linear forwards;
         }
-        @keyframes fallDown{
+
+        .fire-work {
+            position: width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 50%;
+            animation: boom 2s ease-out forwards;
+        }
+
+        @keyframes fall {
             0%{top:-50px;opacity:0;}
             10%{opacity:1;}
             90%{opacity:1;}
             100%{top:100vh;opacity:0;}
         }
 
-        /* 烟花炸裂 */
-        .firework{position:absolute;border-radius:50%;animation:fireBurst 2s ease-out forwards;}
-        @keyframes fireBurst{0%{scale:0;opacity:1;}100%{scale:4;opacity:0;}}
+        @keyframes boom {
+            0%{transform:scale(0);opacity:1;}
+            100%{transform:scale(4);opacity:0;}
+        }
 
-        /* 蛋糕摆件 */
-        .cake-obj{position:absolute;font-size:60px;animation:cakeAni 8s ease-in-out forwards;}
-        @keyframes cakeAni{0%{scale:0;rotate:0deg;}50%{scale:1.1;}100%{scale:1;rotate:10deg;}}
+        .cake-obj {
+            position: absolute;
+            font-size: 60px;
+            animation: cakeFloat 8s ease-in-out infinite;
+        }
 
-        /* 蜡烛摇晃 */
-        .candle{position:absolute;font-size:40px;animation:candleShake 3s ease-in-out infinite alternate;}
-        @keyframes candleShake{0%{rotate:-8deg;}100%{rotate:8deg;}}
+        @keyframes cakeFloat {
+            0%,100%{transform: translateY(0);}
+            50%{transform: translateY(-15px);}
+        }
 
-        /* 爱心跳动 */
-        .heart-obj{position:absolute;font-size:30px;animation:heartBeat 2.5s ease-in-out infinite;}
-        @keyframes heartBeat{0%{scale:1;}50%{scale:1.3;}100%{scale:1;}}
+        .bg-flow {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(60deg,#ff0077,#ffcc22,#9922ff,#00ddeeff,#22ff88);
+            background-size: 600% 600%;
+            animation: bgMove 25s linear infinite;
+            opacity: 0.15;
+            z-index: -2;
+        }
 
-        /* 彩带飘动 */
-        .ribbon{position:absolute;font-size:35px;animation:ribbonFloat 6s ease-in-out infinite;}
-        @keyframes ribbonFloat{0%{translate:0 0;rotate:0deg;}50%{translate:15px 20px;rotate:180deg;}100%{translate:0 0;rotate:360deg;}}
+        .flash-light {
+            position: fixed;
+            inset: 0;
+            background: #fff;
+            opacity: 0;
+            animation: flash 12s infinite;
+        }
 
-        /* 星光闪烁 */
-        .star-obj{position:absolute;font-size:25px;animation:starTwinkle 1.8s ease-in-out infinite alternate;}
-        @keyframes starTwinkle{0%{opacity:0.3;scale:0.8;}100%{opacity:1;scale:1.2;}}
+        @keyframes bgMove {
+            0%{background-position:0% 50%;}
+            50%{background-position:100% 50%;}
+            100%{background-position:0% 50%;}
+        }
 
-        /* 背景渐变流光 */
-        .bg-flow{position:fixed;inset:0;background:linear-gradient(60deg,#ff0077,#ffcc22,#9922ff,#00ddff,#22ff88);background-size:600% 600%;animation:bgMove 25s linear infinite;opacity:0.15;}
-        @keyframes bgMove{0%{background-position:0% 50%;}100%{background-position:100% 50%;}}
+        @keyframes flash {
+            0%,92%,100%{opacity:0;}
+            94%,96%{opacity:0.4;}
+        }
 
-        /* 白色强力频闪 */
-        .flash-light{position:fixed;inset:0;background:#fff;opacity:0;animation:flashStrong 12s infinite;}
-        @keyframes flashStrong{0%,92%,100%{opacity:0;}94%,96%{opacity:0.4;}}
-
-        /* 最终超大文字 */
-        .final-big-text{
+        .big-text {
             position: fixed;
             top: 50%;
             left: 50%;
-            translate: -50% -50%;
+            transform: translate(-50%,-50%) scale(0);
             font-size: 72px;
             font-weight: 900;
             color: #ff2e7e;
-            text-shadow: 0 0 30px #fff,0 0 60px #ff0080;
-            text-align: center;
-            white-space: pre-line;
-            scale: 0;
+            text-shadow: 0 0 60px #fff;
             z-index: 9999;
-            animation: textShow 5s ease-out forwards;
+            animation: showText 5s ease forwards;
         }
-        @keyframes textShow{0%{scale:0;}40%{scale:1.3;}100%{scale:1;}}
+
+        @keyframes showText {
+            40%{transform: translate(-50%,-50%) scale(1.3);}
+            100%{transform: translate(-50%,-50%) scale(1);}
+        }
+
+        /* 表白专属页面 */
+        .love-wrap {
+            width: 100vw;
+            height: 100vh;
+            background: #f8d8e3;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 60px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 99999;
+            display: none;
+        }
+
+        .love-img {
+            width: 240px;
+            border-radius: 20px;
+        }
+
+        .love-title {
+            font-size: 38px;
+            color: #554455;
+            font-weight: bold;
+        }
+
+        .love-btn-group {
+            display: flex;
+            gap: 50px;
+        }
+
+        .btn-agree {
+            padding: 20px 50px;
+            border: none;
+            border-radius: 12px;
+            background: #e8889a;
+            color: #fff;
+            font-size: 26px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .btn-refuse {
+            padding: 20px 50px;
+            border: none;
+            border-radius: 12px;
+            background: #7396d8;
+            color: #fff;
+            font-size: 26px;
+            position: absolute;
+            cursor: pointer;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 40px 0;
+            font-size: 16px;
+            color: #d487af;
+        }
     </style>
 </head>
 <body>
-    <div class="float-item" style="top:12%;left:6%;animation-delay:0s;">❤</div>
-    <div class="float-item" style="top:35%;right:8%;animation-delay:1.2s;">✨</div>
-    <div class="float-item" style="top:65%;left:4%;animation-delay:2.3s;">❤</div>
-    <div class="float-item" style="top:85%;right:12%;animation-delay:3.1s;">✨</div>
+    <div class="bg-flow"></div>
+    <div class="flash-light"></div>
 
     <div class="top-title">
-        <span class="heart">❤</span> 我爱你 龙龙 <span class="heart">❤</span>
+        <span class="heart-icon">❤</span> 我爱你 龙龙 <span class="heart-icon">❤</span>
     </div>
 
     <div class="card">
-        <h2>🎂 龙龙 生日倒计时</h2>
+        <h2>🎂 龙龙生日倒计时</h2>
         <div class="count-time" id="countDown">加载中...</div>
-        <p style="text-align:center;margin-top:18px;color:#c8729b;font-size:17px;">
-            生日日期：11月13日 💝
+        <p style="text-align:center;color:#c8729b">生日日期：11月13日</p>
+        <button class="btn-pink" onclick="openBirthdayAnim()">开启生日浪漫祝福✨</button>
+    </div>
+
+    <div class="card">
+        <h2>✨ 专属心动回忆</h2>
+        <p class="star-text">
+            少年温柔，岁岁欢喜<br>
+            满心欢喜，皆是你<br>
+            永远偏爱，永远心动
         </p>
-        <!-- 加时间锁按钮 -->
-        <button class="pic-btn" onclick="checkBirthdayLock()">生日快乐祝福</button>
+        <button class="btn-pink" onclick="openPhotoPage()">查看专属照片💌</button>
     </div>
 
     <div class="card">
-        <h2>✨ 心动偶像｜陈哲远 ✨</h2>
-        <div class="star-text">
-            少年温柔 自带星光<br>
-            满目星河 不及陈哲远<br>
-            永远热爱 满心欢喜<br>
-            岁岁平安 万事顺意 🌟
-        </div>
-        <button class="pic-btn" onclick="toPhotoPage()">查看全部照片</button>
-    </div>
-
-    <div class="card">
-        <h2>💖 龙龙的少女心小窝</h2>
-        <p style="text-align:center;line-height:2.2;font-size:17px;color:#c76896;">
+        <h2>💖 只属于我们</h2>
+        <p class="star-text">
             专属小窝<br>
-            可可爱爱 甜甜每一天
+            可可爱爱，甜甜每一天
         </p>
+        <button class="btn-pink" onclick="openLovePage()">郑重告白 · 在一起</button>
     </div>
 
     <div class="footer">
-        💗 少女心专属网页 · 温柔治愈小站 💗
+        专属爱意 · 永久珍藏
+    </div>
+
+    <!-- 表白弹窗 -->
+    <div class="love-wrap" id="loveBox">
+        <img src="https://p3-flow-image-sign.byteimg.com/tos-cn-i-a9rneduch4/320c2008408a4008992d0200422d4511~tplv-a9rneduch4-image.image" class="love-img">
+        <div class="love-title">可以成为我的恋人吗？</div>
+        <div class="love-btn-group">
+            <button class="btn-agree" id="yesBtn">可以</button>
+            <button class="btn-refuse" id="noBtn">不要</button>
+        </div>
     </div>
 
     <script>
-        // 固定生日：11月13日
+        // 生日倒计时 11.13
         const targetMonth = 11;
         const targetDay = 13;
 
-        // 首页天数倒计时
         function updateCountDown() {
             const now = new Date();
-            let birth = new Date(now.getFullYear() + "-" + targetMonth + "-" + targetDay);
-            if (now > birth) {
-                birth = new Date(now.getFullYear() + 1 + "-" + targetMonth + "-" + targetDay);
-            }
-            let diff = birth - now;
-            let d = Math.floor(diff / 86400000);
-            let h = Math.floor(diff % 86400000 / 3600000);
-            let m = Math.floor(diff % 3600000 / 60000);
-            let s = Math.floor(diff % 60000 / 1000);
-            document.getElementById("countDown").innerText = `${d}天 ${h}时 ${m}分 ${s}秒`;
+            let birthday = new Date(now.getFullYear(), targetMonth - 1, targetDay);
+            if (now > birthday) birthday = new Date(now.getFullYear() + 1, targetMonth - 1, targetDay);
+
+            const diff = birthday - now;
+            const day = Math.floor(diff / 86400000);
+            const hour = Math.floor((diff % 86400000) / 3600000);
+            const min = Math.floor((diff % 3600000) / 60000);
+            const sec = Math.floor((diff % 60000) / 1000);
+
+            document.getElementById("countDown").innerText = `${day}天 ${hour}时 ${min}分 ${sec}秒`;
         }
         updateCountDown();
         setInterval(updateCountDown, 1000);
 
-        // 生日按钮 时间锁判断
-        function checkBirthdayLock(){
+        // 生日动画
+        function openBirthdayAnim() {
             const now = new Date();
-            const currentMonth = now.getMonth() + 1;
-            const currentDay = now.getDate();
-
-            // 判断：未到11月13日 锁住
-            if(currentMonth < targetMonth || (currentMonth === targetMonth && currentDay < targetDay)){
-                // 计算剩余天数
-                let nextBirth = new Date(now.getFullYear(), targetMonth - 1, targetDay);
-                if(now > nextBirth){
-                    nextBirth = new Date(now.getFullYear() + 1, targetMonth - 1, targetDay);
-                }
-               let days = Math.ceil((nextBirth - now) / (1000 * 60 * 60 * 24));
-                alert(`🎂 还没到龙龙宝宝生日哦\n距离生日还有：${days} 天\n敬请期待～`);
+            const m = now.getMonth() + 1;
+            const d = now.getDate();
+            if (m !== targetMonth || d !== targetDay) {
+                const next = new Date(now.getFullYear(), targetMonth-1, targetDay);
+                if(now>next)next.setFullYear(now.getFullYear()+1);
+                const day = Math.ceil((next-now)/86400000);
+                alert(`还没到生日哦，还差${day}天~`);
                 return;
             }
-            // 到日期 / 已过日期 → 正常进入动画
-            location.href = "?birthday=full";
-        }
-
-        // 图片页面跳转
-        function toPhotoPage(){
-            let ran = Math.floor(Math.random() * 9) + 1;
-            location.href = "?img=" + ran;
-        }
-
-        // 随机颜色
-        function randColor(){
-            let arr = ["#ff0077","#ffdd00","#aa33ff","#00eeff","#33ff99","#ff5533","#ffffff"];
-            return arr[Math.floor(Math.random()*arr.length)];
-        }
-
-        // 生日祝福语库
-        const wishList = [
-            "生日快乐✨","岁岁平安","事事顺心","天天开心","永远可爱",
-            "平安喜乐","好运满满","甜蜜加倍","无忧无虑","万事胜意",
-            "被爱包围","闪闪发光","福气满满","快乐万岁","永远幸福"
-        ];
-
-        // 生成下落祝福文字
-        function createFallText(){
-            let box = document.querySelector(".ani-body");
-            let text = document.createElement("div");
-            text.className = "fall-text";
-            text.innerText = wishList[Math.floor(Math.random()*wishList.length)];
-            text.style.left = Math.random()*100 + "vw";
-            text.style.color = randColor();
-            text.style.fontSize = (Math.random()*12 + 16) + "px";
-            text.style.animationDuration = (Math.random()*6 + 8) + "s";
-            box.appendChild(text);
-            setTimeout(()=>text.remove(),14000);
-        }
-
-        // 生成烟花
-        function createFire(){
-            let box = document.querySelector(".ani-body");
-            let dom = document.createElement("div");
-            dom.className = "firework";
-            dom.style.left = Math.random()*100+"vw";
-            dom.style.top = Math.random()*100+"vh";
-            dom.style.width = dom.style.height = Math.random()*30+15+"px";
-            dom.style.background = randColor();
-            box.appendChild(dom);
-            setTimeout(()=>dom.remove(),2000);
-        }
-
-        // 批量生成生日摆件（蛋糕/蜡烛/爱心/彩带/星星）
-        function addDecoration(){
-            let box = document.querySelector(".ani-body");
-            // 蛋糕
-            let cake = document.createElement("div");
-            cake.className = "cake-obj";
-            cake.innerText = "🎂";
-            cake.style.left = "50%";cake.style.top = "55%";cake.style.translate = "-50%";
-            box.appendChild(cake);
-            // 蜡烛
-            for(let i=0;i<3;i++){
-                let candle = document.createElement("div");
-                candle.className = "candle";
-                candle.innerText = "🕯️";
-                candle.style.left = (35+i*15)+"%";
-                candle.style.top = "48%";
-                box.appendChild(candle);
-            }
-            // 爱心
-            for(let i=0;i<6;i++){
-                let h = document.createElement("div");
-                h.className = "heart-obj";
-                h.innerText = "💖";
-                h.style.left = Math.random()*90+"%";
-                h.style.top = Math.random()*80+"%";
-                box.appendChild(h);
-            }
-            // 彩带
-            for(let i=0;i<4;i++){
-                let r = document.createElement("div");
-                r.className = "ribbon";
-                r.innerText = "🎀";
-                r.style.left = Math.random()*90+"%";
-                r.style.top = Math.random()*80+"%";
-                box.appendChild(r);
-            }
-            // 星星
-            for(let i=0;i<8;i++){
-                let s = document.createElement("div");
-                s.className = "star-obj";
-                s.innerText = "⭐";
-                s.style.left = Math.random()*90+"%";
-                s.style.top = Math.random()*80+"%";
-                box.appendChild(s);
-            }
-        }
-
-
-        //打开告白
-function openLove(){
-    document.getElementById("loveBox").style.display="flex";
-}
-
-//不要乱跑
-document.getElementById("noBtn").onclick=function(){
-    let maxX = window.innerWidth - this.offsetWidth - 20;
-    let maxY = window.innerHeight - this.offsetHeight - 20;
-    this.style.left = Math.random()*maxX+"px";
-    this.style.top = Math.random()*maxY+"px";
-}
-
-//可以放大
-let s=1;
-document.getElementById("yesBtn").onclick=function(){
-    s+=0.25;
-    if(s<3){
-        this.style.transform="scale("+s+")";
-    }else{
-        alert("爱你呦宝宝❤️ 1314");
-        document.getElementById("loveBox").style.display="none";
-        s=1;
-        this.style.transform="scale(1)";
-    }
-}
-
-    
-        // 页面逻辑
-        (function(){
-            let url = location.href;
-
-            // 图片页面 jpg
-            if(url.includes("?img=")){
-                let num = url.split("img=")[1];
-                document.body.innerHTML = `
-                <style>
-                    *{margin:0;padding:0;}
-                    body{background:#000;height:100vh;display:flex;justify-content:center;align-items:center;}
-                    .back-btn{position:fixed;top:15px;left:15px;padding:6px 18px;background:#ff97c1;color:#fff;border:none;border-radius:20px;font-size:16px;z-index:999;}
-                    img{width:100%;height:100%;object-fit:contain;}
-                </style>
-                <button class="back-btn" onclick="history.back()">返回</button>
-                <img src="${num}.jpg" alt="陈哲远">
-                `;
-            }
-
-            // 1分35秒 完整生日动画页 无重复
-            if(url.includes("?birthday=full")){
-                document.body.innerHTML = `
-                <div class="ani-body">
-                    <button class="back-btn" onclick="history.back()">返回</button>
-                    <div class="bg-flow"></div>
-                    <div class="flash-light"></div>
-                    <audio id="bgMp3" loop preload="auto">
-                        <source src="happy.mp3" type="audio/mpeg">
-                    
-                    <div class="final-big-text" id="finalTxt"></div>
+            document.body.innerHTML = `
+                <div class="ani-box">
+                    <button class="btn-back" onclick="history.reload()">返回</button>
+                    <div class="big-text">龙龙生日快乐❤️</div>
                 </div>
+            `;
+        }
+
+        // 照片页
+        function openPhotoPage() {
+            const num = Math.floor(Math.random()*9)+1;
+            location.href = "?img="+num;
+        }
+
+        // 表白页面打开
+        function openLovePage() {
+            document.getElementById("loveBox").style.display = "flex";
+        }
+
+        // 拒绝按钮逃跑
+        document.getElementById("noBtn").onmouseover = function() {
+            const maxX = window.innerWidth - this.offsetWidth - 30;
+            const maxY = window.innerHeight - this.offsetHeight - 30;
+            this.style.left = Math.random() * maxX + "px";
+            this.style.top = Math.random() * maxY + "px";
+        }
+
+        // 同意按钮爱心放大
+        let scale = 1;
+        document.getElementById("yesBtn").onclick = function() {
+            scale += 0.3;
+            if(scale < 3) {
+                this.style.transform = "scale("+scale+")";
+            } else {
+                alert("永远在一起❤️ 1314一辈子");
+                document.getElementById("loveBox").style.display = "none";
+                scale = 1;
+                this.style.transform = "scale(1)";
+            }
+        }
+
+        // 页面路由
+        (function(){
+            const url = location.search;
+            if(url.includes("?img=")){
+                const n = url.split("=")[1];
+                document.body.innerHTML = `
+                <style>body{background:#000;display:flex;justify-content:center;align-items:center;height:100vh;margin:0;}</style>
+                <button class="btn-back" onclick="history.back()">返回</button>
+                <img src="${n}.jpg" style="max-width:90%;max-height:90vh;border-radius:20px;">
                 `;
-
-                // 播放音乐
-                let mp3 = document.getElementById("bgMp3");
-                mp3.volume = 0.7;
-                mp3.play();
-
-                // 0秒：初始化摆件
-                setTimeout(addDecoration, 100);
-
-                // 分段定时触发【全程无重复动画】
-                // 0~15s 下落文字密集
-                let fall1 = setInterval(createFallText, 600);
-                setTimeout(()=>clearInterval(fall1),15000);
-
-                // 15~30s 烟花爆发
-                let fire1 = setInterval(createFire, 900);
-                setTimeout(()=>clearInterval(fire1),30000);
-
-                // 30~45s 慢速祝福飘落
-                let fall2 = setInterval(createFallText, 1400);
-                setTimeout(()=>clearInterval(fall2),45000);
-
-                // 45~60s 高频大烟花
-                let fire2 = setInterval(createFire, 500);
-                setTimeout(()=>clearInterval(fire2),60000);
-
-                // 60~75s 轻奢缓慢文字
-                let fall3 = setInterval(createFallText, 2000);
-                setTimeout(()=>clearInterval(fall3),75000);
-
-                // 75~95s 终极炸裂混合特效
-                let fall4 = setInterval(createFallText, 700);
-                let fire3 = setInterval(createFire, 600);
-                setTimeout(()=>{
-                    clearInterval(fall4);
-                    clearInterval(fire3);
-                },95000);
-
-                // 👉 90秒 弹出：龙龙宝宝 生日快乐
-                setTimeout(()=>{
-                    document.getElementById("finalTxt").innerText = "龙龙宝宝\n生日快乐";
-                },90000);
             }
         })();
     </script>
