@@ -209,33 +209,28 @@
         }
         @keyframes textShow{0%{scale:0;}40%{scale:1.3;}100%{scale:1;}}
 
-        /* ==========新增表白页面样式========== */
-        .love-box{
+        /* 告白页面样式 */
+        .love-page{
             width:100vw;height:100vh;
-            background:linear-gradient(120deg,#ffd6ee,#ffc0e2);
+            background:#f8d8e3;
             display:flex;flex-direction:column;
             justify-content:center;align-items:center;
-            position:fixed;top:0;left:0;z-index:9999;
-            gap:40px;display:none;
+            gap:60px;position:fixed;
+            top:0;left:0;z-index:9999;
+            display:none;
         }
-        .love-title{
-            font-size:42px;color:#ff2470;
-            font-weight:bold;text-align:center;
-            text-shadow:0 0 12px #fff;
-            transition:all 0.4s;
+        .love-img{width:220px;}
+        .love-title{font-size:36px;color:#554455;}
+        .love-btn{display:flex;gap:40px;}
+        .btn-yes{
+            padding:18px 45px;border:none;border-radius:12px;
+            background:#e8889a;color:#fff;font-size:24px;
+            transition:all 0.3s;cursor:pointer;
         }
-        .love-btn-wrap{display:flex;gap:50px;}
-        .yes-btn{
-            padding:18px 40px;font-size:22px;
-            border:none;border-radius:30px;
-            background:#ff3388;color:white;
-            transition:transform 0.5s;
-        }
-        .no-btn{
-            padding:18px 40px;font-size:22px;
-            border:none;border-radius:30px;
-            background:#aaaaaa;color:white;
-            position:absolute;transition:all 0.3s ease;
+        .btn-no{
+            padding:18px 45px;border:none;border-radius:12px;
+            background:#7396d8;color:#fff;font-size:24px;
+            position:absolute;cursor:pointer;
         }
     </style>
 </head>
@@ -255,7 +250,6 @@
         <p style="text-align:center;margin-top:18px;color:#c8729b;font-size:17px;">
             生日日期：11月13日 💝
         </p>
-        <!-- 加时间锁按钮 -->
         <button class="pic-btn" onclick="checkBirthdayLock()">生日快乐祝福</button>
     </div>
 
@@ -276,7 +270,6 @@
             专属小窝<br>
             可可爱爱 甜甜每一天
         </p>
-        <!-- 新增表白按钮 -->
         <button class="pic-btn" onclick="openLovePage()">郑重表白💌</button>
     </div>
 
@@ -284,21 +277,20 @@
         💗 少女心专属网页 · 温柔治愈小站 💗
     </div>
 
-    <!-- ==========新增表白全屏界面========== -->
-    <div class="love-box" id="loveBox">
-        <div class="love-title" id="loveTitle">愿意做我女朋友吗</div>
-        <div class="love-btn-wrap">
-            <button class="yes-btn" id="yesBtn">愿意</button>
-            <button class="no-btn" id="noBtn">不愿意</button>
+    <!-- 同款表情包告白页面 -->
+    <div class="love-page" id="loveBox">
+        <img src="https://p3-flow-image-sign.byteimg.com/tos-cn-i-a9rneduch4/320c2008408a4008992d0200422d4511~tplv-a9rneduch4-image.image" class="love-img">
+        <div class="love-title">可以成为我的恋人吗？</div>
+        <div class="love-btn">
+            <button class="btn-yes" id="yesBtn">可以</button>
+            <button class="btn-no" id="noBtn">不要</button>
         </div>
     </div>
 
     <script>
-        // 固定生日：11月13日
         const targetMonth = 11;
         const targetDay = 13;
 
-        // 首页天数倒计时
         function updateCountDown() {
             const now = new Date();
             let birth = new Date(now.getFullYear() + "-" + targetMonth + "-" + targetDay);
@@ -315,47 +307,39 @@
         updateCountDown();
         setInterval(updateCountDown, 1000);
 
-        // 生日按钮 时间锁判断
         function checkBirthdayLock(){
             const now = new Date();
             const currentMonth = now.getMonth() + 1;
             const currentDay = now.getDate();
 
-            // 判断：未到11月13日 锁住
             if(currentMonth < targetMonth || (currentMonth === targetMonth && currentDay < targetDay)){
-                // 计算剩余天数
                 let nextBirth = new Date(now.getFullYear(), targetMonth - 1, targetDay);
                 if(now > nextBirth){
                     nextBirth = new Date(now.getFullYear() + 1, targetMonth - 1, targetDay);
                 }
-               let days = Math.ceil((nextBirth - now) / (1000 * 60 * 60 * 24));
+               let days = Math.ceil((nextBirth - now)let / (1000 * 60 * 60 * 24));
                 alert(`🎂 还没到龙龙宝宝生日哦\n距离生日还有：${days} 天\n敬请期待～`);
                 return;
             }
-            // 到日期 / 已过日期 → 正常进入动画
             location.href = "?birthday=full";
         }
 
-        // 图片页面跳转
         function toPhotoPage(){
             let ran = Math.floor(Math.random() * 9) + 1;
             location.href = "?img=" + ran;
         }
 
-        // 随机颜色
         function randColor(){
             let arr = ["#ff0077","#ffdd00","#aa33ff","#00eeff","#33ff99","#ff5533","#ffffff"];
             return arr[Math.floor(Math.random()*arr.length)];
         }
 
-        // 生日祝福语库
         const wishList = [
             "生日快乐✨","岁岁平安","事事顺心","天天开心","永远可爱",
             "平安喜乐","好运满满","甜蜜加倍","无忧无虑","万事胜意",
             "被爱包围","闪闪发光","福气满满","快乐万岁","永远幸福"
         ];
 
-        // 生成下落祝福文字
         function createFallText(){
             let box = document.querySelector(".ani-body");
             let text = document.createElement("div");
@@ -369,7 +353,6 @@
             setTimeout(()=>text.remove(),14000);
         }
 
-        // 生成烟花
         function createFire(){
             let box = document.querySelector(".ani-body");
             let dom = document.createElement("div");
@@ -382,16 +365,13 @@
             setTimeout(()=>dom.remove(),2000);
         }
 
-        // 批量生成生日摆件（蛋糕/蜡烛/爱心/彩带/星星）
         function addDecoration(){
             let box = document.querySelector(".ani-body");
-            // 蛋糕
             let cake = document.createElement("div");
             cake.className = "cake-obj";
             cake.innerText = "🎂";
             cake.style.left = "50%";cake.style.top = "55%";cake.style.translate = "-50%";
             box.appendChild(cake);
-            // 蜡烛
             for(let i=0;i<3;i++){
                 let candle = document.createElement("div");
                 candle.className = "candle";
@@ -400,7 +380,6 @@
                 candle.style.top = "48%";
                 box.appendChild(candle);
             }
-            // 爱心
             for(let i=0;i<6;i++){
                 let h = document.createElement("div");
                 h.className = "heart-obj";
@@ -409,7 +388,6 @@
                 h.style.top = Math.random()*80+"%";
                 box.appendChild(h);
             }
-            // 彩带
             for(let i=0;i<4;i++){
                 let r = document.createElement("div");
                 r.className = "ribbon";
@@ -418,7 +396,6 @@
                 r.style.top = Math.random()*80+"%";
                 box.appendChild(r);
             }
-            // 星星
             for(let i=0;i<8;i++){
                 let s = document.createElement("div");
                 s.className = "star-obj";
@@ -429,65 +406,37 @@
             }
         }
 
-        // ========================新增表白全部逻辑========================
-        // 哀求情话库
-        const loveWord = [
-            "求求你做我女朋友好不好",
-            "我真的超级超级喜欢你",
-            "别拒绝我好不好宝宝",
-            "一辈子只爱你一个人",
-            "答应我嘛我会好好对你",
-            "没有你我真的不行",
-            "求求龙龙宝贝答应我",
-            "我只想和你一直在一起"
-        ];
-
-        // 打开表白页面
+        // 表白页面打开
         function openLovePage(){
             document.getElementById("loveBox").style.display = "flex";
-            changeLoveTitle();
         }
 
-        // 随机更换哀求标题
-        function changeLoveTitle(){
-            document.getElementById("loveTitle").innerText = loveWord[Math.random()*loveWord.length|0];
+        // 不要按钮乱跑
+        const noBtn = document.getElementById("noBtn");
+        noBtn.onclick = function(){
+            const maxX = window.innerWidth - noBtn.offset - 30;
+            const maxY = window.innerHeight - noBtn.offsetHeight - 30;
+            noBtn.style.left = Math.random()*maxX + 'px';
+            noBtn.style.top = Math.random()*maxY + 'px';
         }
 
-        // 不愿意按钮随机乱飞（不超出屏幕）
-        document.getElementById("noBtn").onclick = function(){
-            // 随机位置 严格限制不溢出窗口
-            let maxX = window.innerWidth - this.offsetWidth - 20;
-            let maxY = window.innerHeight - this.offsetHeight - 20;
-            let x = Math.random() * maxX;
-            let y = Math.random() * maxY;
-            this.style.left = x + "px";
-            this.style.top = y + "px";
-            // 每次点都换哀求文案
-            changeLoveTitle();
-        }
-
-        // 愿意按钮放大（不超出屏幕）
-        let yesScale = 1;
-        document.getElementById("yesBtn").onclick = function(){
-            yesScale += 0.25;
-            // 限制最大大小 不会溢出屏幕
-            if(yesScale < 2.8){
-                this.style.transform = "scale("+yesScale+")";
+        // 可以按钮放大
+        let scale = 1;
+        const yesBtn = document.getElementById("yesBtn");
+        yesBtn.onclick = function(){
+            scale += 0.25;
+            if(scale < 3){
+                yesBtn.style.transform = "scale("+scale+")";
             }else{
-                // 弹窗提示
                 alert("爱你呦宝宝❤️\n收到请回复1314");
-                // 回到首页
                 document.getElementById("loveBox").style.display = "none";
-                yesScale = 1;
-                this.style.transform = "scale(1)";
+                scale = 1;
+                yesBtn.style.transform = "scale(1)";
             }
         }
 
-        // 页面逻辑
         (function(){
             let url = location.href;
-
-            // 图片页面 jpg
             if(url.includes("?img=")){
                 let num = url.split("img=")[1];
                 document.body.innerHTML = `
@@ -502,7 +451,6 @@
                 `;
             }
 
-            // 1分35秒 完整生日动画页 无重复
             if(url.includes("?birthday=full")){
                 document.body.innerHTML = `
                 <div class="ani-body">
@@ -516,36 +464,27 @@
                 </div>
                 `;
 
-                // 播放音乐
                 let mp3 = document.getElementById("bgMp3");
                 mp3.volume = 0.7;
                 mp3.play();
 
-                // 0秒：初始化摆件
                 setTimeout(addDecoration, 100);
 
-                // 分段定时触发【全程无重复动画】
-                // 0~15s 下落文字密集
                 let fall1 = setInterval(createFallText, 600);
                 setTimeout(()=>clearInterval(fall1),15000);
 
-                // 15~30s 烟花爆发
                 let fire1 = setInterval(createFire, 900);
                 setTimeout(()=>clearInterval(fire1),30000);
 
-                // 30~45s 慢速祝福飘落
                 let fall2 = setInterval(createFallText, 1400);
                 setTimeout(()=>clearInterval(fall2),45000);
 
-                // 45~60s 高频大烟花
                 let fire2 = setInterval(createFire, 500);
                 setTimeout(()=>clearInterval(fire2),60000);
 
-                // 60~75s 轻奢缓慢文字
                 let fall3 = setInterval(createFallText, 2000);
                 setTimeout(()=>clearInterval(fall3),75000);
 
-                // 75~95s 终极炸裂混合特效
                 let fall4 = setInterval(createFallText, 700);
                 let fire3 = setInterval(createFire, 600);
                 setTimeout(()=>{
@@ -553,6 +492,11 @@
                     clearInterval(fire3);
                 },95000);
 
-                // 👉 90秒 弹出：龙龙宝宝 生日快乐
                 setTimeout(()=>{
-                    document.getElementById("finalTxt")
+                    document.getElementById("finalTxt").innerText = "龙龙宝宝\n生日快乐";
+                },90000);
+            }
+        })();
+    </script>
+</body>
+</html>
